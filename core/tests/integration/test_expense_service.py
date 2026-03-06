@@ -101,6 +101,7 @@ def test_create_multiple_expenses_and_list():
     assert expenses[0].title.__eq__("Pan")
     assert expenses[1].title.__eq__("Leche")
 
+
 def test_remove_expense_reduces_total():
     """
     Evalúa el comportamiento del sistema al eliminar un gasto existente:
@@ -124,6 +125,7 @@ def test_remove_expense_reduces_total():
     expenses = service.list_expenses()
     assert len(expenses) == 1
     assert expenses[0].title.__eq__("Revista")
+
 
 def test_update_expense_partial_fields():
     """
@@ -150,6 +152,7 @@ def test_update_expense_partial_fields():
     assert expenses[0].title.__eq__("Camiseta")
     assert expenses[0].amount.__eq__(18.0)
     assert expenses[0].description.__eq__("Ropa")
+
 
 def test_total_amount_after_removal():
     """
