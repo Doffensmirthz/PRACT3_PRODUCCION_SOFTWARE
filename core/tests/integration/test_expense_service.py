@@ -137,8 +137,19 @@ def test_update_expense_partial_fields():
         - El campo 'description' permanece sin cambios ("Ropa").
     - Este test asegura que el método update_expense respeta la inmutabilidad de los campos no especificados, realizando actualizaciones parciales de manera precisa.
     """
-    ...
+    service = create_service()
 
+    service.create_expense("Camiseta", 15.0, "Ropa", date.today())
+
+    expenses = service.list_expenses()
+
+    service.update_expense(expenses[0].id, amount=18.0)
+
+    expenses = service.list_expenses()
+
+    assert expenses[0].title.__eq__("Camiseta")
+    assert expenses[0].amount.__eq__(18.0)
+    assert expenses[0].description.__eq__("Ropa")
 
 def test_total_amount_after_removal():
     """
@@ -150,4 +161,13 @@ def test_total_amount_after_removal():
     - Se recalcula el total y se espera que sea 25, reflejando únicamente el monto del gasto aún presente.
     - Este test valida que el método total_amount refleja los cambios en el sistema ante eliminaciones, manteniendo la consistencia de los datos agregados.
     """
-    ...
+    service = create_service()
+
+    service.create_expense("Cursos", 30.0)
+    service.create_expense("Internet", 25.0)
+
+    assert service.total_amount().__eq__(55.0)
+
+    service.remove_expense(1)
+
+    assert service.total_amount().__eq__(25.0)
