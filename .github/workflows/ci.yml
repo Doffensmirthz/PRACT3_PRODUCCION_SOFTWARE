@@ -22,7 +22,7 @@ jobs:
         run: uv sync
 
       - name: Install ruff and mypy
-        run: uv install ruff mypy
+        run: uv pip install ruff mypy
 
       - name: Ruff format
         run: uv run ruff format --check .
