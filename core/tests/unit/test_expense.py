@@ -40,7 +40,7 @@ def test_negative_amount_raises_error():
     """
 
     with pytest.raises(InvalidAmountError):
-        Expense(id=1, title="", amount=-10, description="", expense_date=date.today())
+        Expense(id=1, title="titulo", amount=-10, description="", expense_date=date.today())
 
 
 def test_future_date_raises_error():
@@ -59,8 +59,8 @@ def test_future_date_raises_error():
     with pytest.raises(InvalidExpenseDateError):
         Expense(
             id=1,
-            title="",
-            amount=-10,
+            title="titulo",
+            amount=10,
             description="",
             expense_date=date.fromisoformat("9999-12-31"),
         )
