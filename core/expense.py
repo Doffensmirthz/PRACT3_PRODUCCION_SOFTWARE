@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from datetime import date
 
 from core.domain_error import (
-    InvalidAmountError,
-    InvalidExpenseDateError,
     EmptyTitleError,
+    InvalidAmountError,
+    InvalidExpenseDateError
 )
 
 
@@ -21,9 +21,6 @@ class Expense:
         FIXME: Revisen si falta algo que comprobar...
         """
 
-        if len(self.title) < 1:
-            raise EmptyTitleError("El título no puede ser nulo")
-
         if self.amount <= 0:
             raise InvalidAmountError("El importe debe ser mayor que 0")
 
@@ -31,3 +28,6 @@ class Expense:
             raise InvalidExpenseDateError(
                 "La fecha del gasto no puede ser posterior a hoy"
             )
+
+        if len(self.title) < 1:
+            raise EmptyTitleError("El título no puede ser nulo")
