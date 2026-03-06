@@ -1,6 +1,7 @@
 from datetime import date
 
 from core.expense_service import ExpenseService
+from core.in_memory_expense_repository import InMemoryExpenseRepository
 from core.no_tocar.sqlite_expense_repository import SQLiteExpenseRepository
 
 
@@ -89,8 +90,16 @@ def test_create_multiple_expenses_and_list():
         - El número total de gastos en el sistema es exactamente dos, lo que verifica que no se sobrescriben ni se duplican registros al crear múltiples gastos.
     - Este test valida que la función de listado refleja fielmente todos los gastos registrados hasta el momento.
     """
-    ...
+    service = create_service()
 
+    service.create_expense("Pan", 3.0, "Mercado", date.today())
+    service.create_expense("Leche", 4.0, "Supermercado", date.today())
+
+    expenses = service.list_expenses()
+
+    assert len(expenses) == 2
+    assert expenses[0].title.__eq__("Pan")
+    assert expenses[1].title.__eq__("Leche")
 
 def test_remove_expense_reduces_total():
     """
@@ -104,8 +113,17 @@ def test_remove_expense_reduces_total():
           y que la operación no afecta otros registros.
     - La prueba valida tanto la integridad de la operación de borrado como la actualización exacta del listado.
     """
-    ...
+    service = create_service()
 
+    service.create_expense("Libro", 69.420, "un libro", date.today())
+    service.create_expense("Revista", 420.69, "una revista", date.today())
+
+    expenses = service.list_expenses()
+    service.remove_expense(expenses[0].id)
+
+    expenses = service.list_expenses()
+    assert len(expenses) == 1
+    assert expenses[0].title.__eq__("Revista")
 
 def test_update_expense_partial_fields():
     """
