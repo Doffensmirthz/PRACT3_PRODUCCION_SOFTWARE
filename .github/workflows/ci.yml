@@ -35,6 +35,6 @@ jobs:
       - name: Unit tests
         run: uv run pytest core/tests/unit
       - name: Integration tests
-        run: uv run pytest core/test/integration
+        run: uv run pytest core/tests/integration
       - name: BDD tests
-        run: uv run pytest core/test/behaviour
+        run: uv run pytest core/tests/behaviour
